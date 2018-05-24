@@ -1,0 +1,143 @@
+body {
+  font-size: 0.85em;
+  height: 100%;
+}
+
+#app .container-fluid {
+  margin-top: 40px;
+}
+
+.feather {
+  width: 16px;
+  height: 16px;
+  vertical-align: sub;
+}
+
+.material-icons {
+  vertical-align: bottom;
+}
+
+.sidebar-sticky {
+  position: -webkit-sticky;
+  position: sticky;
+}
+
+.sidebar-sticky {
+  position: relative;
+  top: 0;
+  height: calc(100vh - 48px);
+  padding-top: .5rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.main-header {}
+
+.main-content {
+  min-height: calc(100vh - 155px);
+}
+
+.main-footer {}
+
+// Width
+.w-5 {
+  width: 5% !important
+}
+.w-10 {
+  width: 10% !important
+}
+.w-15 {
+  width: 15% !important
+}
+.w-20 {
+  width: 20% !important
+}
+// Height
+.h-5 {
+  height: 5% !important
+}
+.h-10 {
+  height: 10% !important
+}
+.h-15 {
+  height: 15% !important
+}
+.h-20 {
+  height: 20% !important
+}
+// Extras
+.pointer {
+  cursor: pointer
+}
+
+// Fix control radius
+.btn,
+.form-control,
+.custom-checkbox .custom-control-label::before,
+.custom-checkbox .custom-control-label::after {
+  //   box-shadow: inset 0 0px 0 #ddd;
+  border-radius: 0;
+}
+
+.custom-checkbox .custom-control-label::before {
+  border: 1px solid #bbb;
+  background-color: #fff;
+}
+
+//
+.custom-control-input:focus~.custom-control-label::before,
+.custom-control-input:active~.custom-control-label::before {
+  outline: none;
+  box-shadow: none;
+}
+
+.custom-control.custom-checkbox.custom-width {
+  min-height: 0;
+  padding-left: 0;
+}
+
+.custom-control.custom-checkbox.custom-width label {
+  position: absolute;
+}
+
+.custom-control.custom-checkbox.custom-width label::before,
+.custom-control.custom-checkbox.custom-width label::after {
+  width: 1.3rem;
+  height: 1.3rem;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+}
+
+// tm-table
+.tm-table-header {
+  // padding: 10px 15px;
+  display: flex;
+  justify-content: space-between;
+  background: #fff;
+  border-bottom: 1px solid #eee; // &-title{
+  //     flex: 2;
+  // }
+  // &-columns{
+  //     flex: 2;
+  //     display: flex;
+  //     justify-content: space-between;
+  // }
+  // &-opeators{
+  //     flex: 2;
+  //     display: flex;
+  //     justify-content: space-between;
+  // }
+  // &-search{
+  //     flex: 5;
+  // }
+}
+
+// #app {
+//     font-family: "Avenir", Helvetica, Arial, sans-serif;
+//     -webkit-font-smoothing: antialiased;
+//     -moz-osx-font-smoothing: grayscale;
+//     text-align: center;
+//     color: #2c3e50;
+//     margin-top: 60px;
+//   }
