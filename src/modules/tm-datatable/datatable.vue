@@ -6,13 +6,13 @@
 <script>
 import Vue from "vue";
 import TMDatatable from "../../components/tm-datatable/TMDatatable";
-import services from "./services";
+import userService from "../../services/users";
 import tdOpt from "./comps/td-opt";
+// import users from "../../model/users";
 Vue.component("td-opt", tdOpt);
 Vue.component("tm-datatable", TMDatatable);
 
 export default {
-  props: ["data"],
   data() {
     return {
       cols: [
@@ -37,7 +37,9 @@ export default {
     };
   },
   created() {
-    console.log(this.data);
+    var data = userService.select();
+    console.log(data);
+    // console.log(users);
   }
 };
 </script>
