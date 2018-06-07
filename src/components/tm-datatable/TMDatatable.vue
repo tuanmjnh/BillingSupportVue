@@ -127,16 +127,21 @@ export default {
   methods: {
     fetchIndexData() {
       var vm = this;
-      axios
-        .get(this.source)
-        .then(function(response) {
-          Vue.set(vm.$data, "table", response.data.data);
-          // console.log(response.data.data);
-          // Vue.set(vm.$data, "columns", response.data.columns);
-        })
-        .catch(function(response) {
-          console.log(response);
-        });
+      if (typeof this.source === "object") {
+        Vue.set(vm.$data, "table", this.source);
+        // console.log(typeof this.source);
+      } else {
+        axios
+          .get(this.source)
+          .then(function(response) {
+            Vue.set(vm.$data, "table", response.data.data);
+            // console.log(response.data.data);
+            // Vue.set(vm.$data, "columns", response.data.columns);
+          })
+          .catch(function(response) {
+            console.log(response);
+          });
+      }
     },
     checkboxChecked(event) {
       if (event.target.name === "chkAll") {

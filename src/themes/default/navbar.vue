@@ -4,14 +4,21 @@
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
         <ul class="navbar-nav px-3">
             <li class="nav-item text-nowrap">
-                <a class="nav-link" href="#">Sign out</a>
+                <a class="nav-link pointer" @click="signOut">Sign out</a>
             </li>
         </ul>
     </nav>
 </template>
 <script>
-    export default {};
+import {firebase} from "../../connection/firebaseInit.js";
+export default {
+  methods: {
+    signOut() {
+      firebase.auth().signOut();
+      this.$router.push("/auth");
+    }
+  }
+};
 </script>
 <style scoped>
-
 </style>

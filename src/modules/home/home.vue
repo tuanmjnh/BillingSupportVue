@@ -5,7 +5,10 @@
 </template>
 
 <script>
-    export default {
-      name: 'home'
-    };
+export default {
+  name: "home",
+  created() {
+    // console.log(this.$store.state.auth);
+  }
+};
 </script>

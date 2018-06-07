@@ -36,20 +36,28 @@
 </template>
 
 <script>
-  import defaultNavbar from './themes/default/navbar';
-  import defaultToolbar from './themes/default/toolbar';
-  import defaultFooter from './themes/default/footer';
-  export default {
-    name: 'App',
-    components: {
-      'default-navbar': defaultNavbar,
-      'default-toolbar': defaultToolbar,
-      'default-footer': defaultFooter
-    }
-  };
+import defaultNavbar from "./themes/default/navbar";
+import defaultToolbar from "./themes/default/toolbar";
+import defaultFooter from "./themes/default/footer";
+import {firebase} from "./connection/firebaseInit.js";
+export default {
+  name: "App",
+  components: {
+    "default-navbar": defaultNavbar,
+    "default-toolbar": defaultToolbar,
+    "default-footer": defaultFooter
+  },
+  created() {
+    firebase.auth().onAuthStateChanged(user => {
+      this.$store.commit("AUTH_UPDATED", user);
+      // console.log(store.state.auth)
+    });
+    // console.log(this);
+  }
+};
 </script>
 
 <style lang="scss">
-  @import '../node_modules/bootstrap/scss/bootstrap.scss';
-  @import './assets/style.scss';
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+@import "./assets/style.scss";
 </style>

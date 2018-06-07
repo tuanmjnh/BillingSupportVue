@@ -15,6 +15,7 @@
     "format": "prettier --write '**/*.{js,jsx}'"
   },
   "dependencies": {
+    "@firebase/app-types": "^0.3.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.1",
     "firebase": "^5.0.3",
@@ -25,7 +26,8 @@
     "vue-router": "^3.0.1",
     "vue-tables-2": "^1.4.50",
     "vue2-datatable-component": "^2.3.0",
-    "vuefire": "^2.0.0-alpha.11"
+    "vuefire": "^2.0.0-alpha.11",
+    "vuex": "^3.0.1"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

@@ -1,12 +1,12 @@
-import db from "../connection/firebaseInit";
-import {
-  Users
-} from "../models/users";
+import {Users} from "../../models/users";
+import {firestore} from '../../connection/firebaseInit.js';
+// const db = require('../../connection/firebaseInit.js');
 var user = new Users();
 const data = [];
 export default {
   select() {
-    const query = db
+    this.data = [];
+    const query = firestore
       .collection("users")
       .get()
       .then(function (querySnapshot) {
@@ -19,5 +19,11 @@ export default {
         });
       });
     return data;
+  },
+  insert() {
+
+  },
+  update() {
+
   }
 }

@@ -3,27 +3,29 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
+import {store} from './store';
 import './extensions/filter' // filter
-// import VueFire from 'vuefire'
-// import firebase from 'firebase/app'
-// import 'firebase/firestore'
-// import firebaseConfig from './connection/firebaseConfig';
-
-// Firebase
-// Initialize Firebase
-// Vue.use(VueFire);
-
-// const firebaseApp = firebase.initializeApp(firebaseConfig);
-// export default firebaseApp.firestore();
-// export const db = firebase.firestore();
+import {firebase} from './connection/firebaseInit.js'
 // Config
 Vue.config.productionTip = false;
 /* eslint-disable no-new */
-new Vue({
-  el: '#app',
-  router,
-  components: {
-    App
-  },
-  template: '<App/>'
-});
+// new Vue({
+//   el: '#app',
+//   router,
+//   store,
+//   components: {App},
+//   template: '<App/>'
+// });
+let app
+firebase.auth().onAuthStateChanged(user => {
+  // console.log(user)
+  if (!app) {
+    app = new Vue({
+      el: '#app',
+      router,
+      store,
+      components: {App},
+      template: '<App/>'
+    });
+  }
+})
