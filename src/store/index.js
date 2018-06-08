@@ -1,12 +1,26 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import db from '../connection/firebaseInit.js'
-import auth from './auth';
+import {firestore} from '../connection/firebaseInit.js'
+import auth from './modules/auth';
+import cart from './modules/cart'
+import products from './modules/products'
 
 Vue.use(Vuex);
 
-export const store = new Vuex.Store({
+export default new Vuex.Store({
   modules: {
-    auth: auth
-  }
+    auth,
+    cart,
+    products
+  },
+  state: { // = data
+  },
+
+  getters: { // = computed properties
+  },
+
+  actions: {},
+
+  mutations: {}
+
 });

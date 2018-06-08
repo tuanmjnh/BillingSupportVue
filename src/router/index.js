@@ -1,12 +1,14 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import {firebase} from '../connection/firebaseInit.js'
 import home from '@/modules/home/home'
 import auth from '@/modules/auth/auth'
 import dashboard from '@/modules/dashboard/dashboard'
 import datatable from '@/modules/datatable/datatable'
 import vue2datatable from '@/modules/vue2datatable/vue2datatable';
 import tmDatatable from '@/modules/tm-datatable/datatable';
-import {firebase} from '../connection/firebaseInit.js'
+import demoStore from '@/modules/demo-store/index';
+
 Vue.use(Router)
 
 const router = new Router({
@@ -59,7 +61,16 @@ const router = new Router({
       meta: {
         requiresAuth: true
       }
+    },
+    {
+      path: '/demostore',
+      name: 'Demostore',
+      component: demoStore,
+      meta: {
+        requiresAuth: true
+      }
     }
+
   ]
 });
 router.beforeEach((to, from, next) => {

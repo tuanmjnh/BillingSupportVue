@@ -5,80 +5,45 @@
         <p>Loading...</p>
       </div>
     </transition>
+    <transition name="fade">
+      <div v-if="errorMsg !== ''" class="error-msg">
+        <p>{{ errorMsg }}</p>
+      </div>
+    </transition>
     <section>
       <div class="col2" :class="{ 'signup-form': !showLoginForm && !showForgotPassword }">
         <form v-if="showLoginForm" @submit.prevent>
-          <h1>Welcome Back</h1>
-
-          <label for="email1">Email</label>
-          <input v-model.trim="loginForm.email" type="text" placeholder="you@email.com" id="email1" />
-
-          <label for="password1">Password</label>
-          <input v-model.trim="loginForm.password" type="password" placeholder="******" id="password1" />
-
-          <button @click="login" class="btn btn-secondary">Log In</button>
-
-          <div class="extras">
-            <a @click="togglePasswordReset">Forgot Password</a>
-            <a @click="toggleForm">Create an Account</a>
+          <div class="col-md-5 m-auto">
+            <div class="card">
+              <h5 class="card-header">Login Form</h5>
+              <div class="card-body">
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input v-model.trim="loginForm.email" type="text" class="form-control" placeholder="example@email.com" id="email" />
+                </div>
+                <div class="form-group">
+                  <label for="password">Password</label>
+                  <input v-model.trim="loginForm.password" type="password" class="form-control" placeholder="******" id="password" />
+                </div>
+              <!-- <a @click="togglePasswordReset">Forgot Password</a> -->
+              <!-- <a @click="toggleForm">Create an Account</a> -->
           </div>
-        </form>
-        <form v-if="!showLoginForm && !showForgotPassword" @submit.prevent>
-          <h1>Get Started</h1>
-
-          <label for="name">Name</label>
-          <input v-model.trim="signupForm.name" type="text" placeholder="Savvy Apps" id="name" />
-
-          <label for="title">Title</label>
-          <input v-model.trim="signupForm.title" type="text" placeholder="Company" id="title" />
-
-          <label for="email2">Email</label>
-          <input v-model.trim="signupForm.email" type="text" placeholder="you@email.com" id="email2" />
-
-          <label for="password2">Password</label>
-          <input v-model.trim="signupForm.password" type="password" placeholder="min 6 characters" id="password2" />
-
-          <button @click="signup" class="button">Sign Up</button>
-
-          <div class="extras">
-            <a @click="toggleForm">Back to Log In</a>
+          <div class="card-footer text-right">
+              <button @click="login" class="btn btn-secondary">Log In</button>
           </div>
-        </form>
-        <form v-if="showForgotPassword" @submit.prevent class="password-reset">
-          <div v-if="!passwordResetSuccess">
-            <h1>Reset Password</h1>
-            <p>We will send you an email to reset your password</p>
-
-            <label for="email3">Email</label>
-            <input v-model.trim="passwordForm.email" type="text" placeholder="you@email.com" id="email3" />
-
-            <button @click="resetPassword" class="button">Submit</button>
-
-            <div class="extras">
-              <a @click="togglePasswordReset">Back to Log In</a>
             </div>
           </div>
-          <div v-else>
-            <h1>Email Sent</h1>
-            <p>check your email for a link to reset your password</p>
-            <button @click="togglePasswordReset" class="button">Back to login</button>
-          </div>
         </form>
-        <transition name="fade">
-          <div v-if="errorMsg !== ''" class="error-msg">
-            <p>{{ errorMsg }}</p>
-          </div>
-        </transition>
       </div>
     </section>
   </div>
 </template>
 
 <script>
-import {firebase} from "../../connection/firebaseInit.js";
+import {firebase} from '@/connection/firebaseInit.js'
+import { mapState, mapGetters, mapActions } from "vuex";
 export default {
   name: "auth",
-  mounted() {},
   data() {
     return {
       loginForm: {
@@ -101,21 +66,19 @@ export default {
       errorMsg: ""
     };
   },
+  computed: {
+    ...mapState({
+      authUser: state => state.auth.authUser
+    }),
+    ...mapGetters("auth", {
+      // productIsInStock: "productIsInStock"
+    })
+  },
   methods: {
-    toggleForm() {
-      this.errorMsg = "";
-      this.showLoginForm = !this.showLoginForm;
-    },
-    togglePasswordReset() {
-      if (this.showForgotPassword) {
-        this.showLoginForm = true;
-        this.showForgotPassword = false;
-        this.passwordResetSuccess = false;
-      } else {
-        this.showLoginForm = false;
-        this.showForgotPassword = true;
-      }
-    },
+    ...mapActions({
+      // login: "auth/login"
+      // addProductToCart: "cart/addProductToCart"
+    }),
     login() {
       this.performingRequest = true;
       firebase
@@ -125,9 +88,8 @@ export default {
           this.loginForm.password
         )
         .then(users => {
-          this.$store.commit("AUTH_UPDATED", users.user);
-          // this.$store.commit("setAuth", user);
-          // this.$store.dispatch("setUserProfile");
+          this.$store.commit("auth/authUpdate", users.user);
+          console.log(this.$store)
           this.performingRequest = false;
           this.$router.push("/home");
           // console.log(this.$store.state.auth);
@@ -138,54 +100,11 @@ export default {
           this.errorMsg = err.message;
         });
     }
-    // signup() {
-    //   this.performingRequest = true;
-    //   db.auth()
-    //     .createUserWithEmailAndPassword(
-    //       this.signupForm.email,
-    //       this.signupForm.password
-    //     )
-    //     .then(user => {
-    //       this.$store.commit("setCurrentUser", user);
-    //       // create user obj
-    //       fb.usersCollection
-    //         .doc(user.uid)
-    //         .set({
-    //           name: this.signupForm.name,
-    //           title: this.signupForm.title
-    //         })
-    //         .then(() => {
-    //           this.$store.dispatch("fetchUserProfile");
-    //           this.performingRequest = false;
-    //           this.$router.push("/dashboard");
-    //         })
-    //         .catch(err => {
-    //           console.log(err);
-    //           this.performingRequest = false;
-    //           this.errorMsg = err.message;
-    //         });
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       this.performingRequest = false;
-    //       this.errorMsg = err.message;
-    //     });
-    // },
-    // resetPassword() {
-    //   this.performingRequest = true;
-    //   fb.auth
-    //     .sendPasswordResetEmail(this.passwordForm.email)
-    //     .then(() => {
-    //       this.performingRequest = false;
-    //       this.passwordResetSuccess = true;
-    //       this.passwordForm.email = "";
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //       this.performingRequest = false;
-    //       this.errorMsg = err.message;
-    //     });
-    // }
+  },
+  created() {
+    // console.log(authUser)
+    // this.loading = true;
+    // this.fetchProducts().then(() => (this.loading = false));
   }
 };
 </script>

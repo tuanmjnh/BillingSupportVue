@@ -49,8 +49,8 @@ export default {
   },
   created() {
     firebase.auth().onAuthStateChanged(user => {
-      this.$store.commit("AUTH_UPDATED", user);
-      // console.log(store.state.auth)
+      this.$store.commit("auth/authUpdate", user);
+      // console.log(this.$store.getters)
     });
     // console.log(this);
   }
